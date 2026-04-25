@@ -8,12 +8,10 @@ import json
 import random
 import copy
 import sys
-from itertools import permutations
 
 COMPLICATION_CHANCE = 0.20
 COMPLICATION_MULTIPLIER = 1.5
 REPUTATION_FAIL_PENALTY = 0.10
-TRAP_DETECT_RATE = 1.0  # traps always detectable before travel
 
 random.seed(42)
 
@@ -50,6 +48,7 @@ def travel_time(city_a, city_b, travel_map):
 
 
 DEADLINE_SAFETY_BUFFER = 3
+
 
 def contract_value_score(contract, reputation_mult, current_skills, travel_map, current_city, current_day):
     """Score a contract: gold adjusted for risk, travel, and deadline urgency."""
@@ -90,10 +89,9 @@ def run_engine(contracts_data, map_data, profile):
     all_contracts = contracts_data["contracts"]
     travel_map = map_data["travel_times"]
 
-    # Agent state
+    # Current player state
     current_city = profile["starting_city"]
     gold = profile["gold"]
-    reputation = profile["reputation"]
     skills = copy.copy(profile["skills"])
     current_day = 1
     max_contracts = profile["max_contracts"]
@@ -108,6 +106,7 @@ def run_engine(contracts_data, map_data, profile):
     available_ids = set(c["id"] for c in all_contracts)
 
     def rep_mult():
+        # Every failure or abandoned trap reduces future rewards.
         fails = len(failed) + len(abandoned)
         return max(0.1, 1.0 - fails * REPUTATION_FAIL_PENALTY)
 
@@ -118,10 +117,19 @@ def run_engine(contracts_data, map_data, profile):
             "skills": copy.copy(skills)
         })
 
+    def print_event(message):
+        print(message)
+
+    print_event(
+        f"Starting run: city={current_city}, total_days={total_days}, "
+        f"max_active_contracts={max_contracts}"
+    )
+    print_event(f"Starting skills: {skills}")
+
     # ── Main simulation loop ──
     while current_day <= total_days:
 
-        # --- Check deadlines on active contracts ---
+        # Step 1: remove active contracts that already expired.
         newly_failed = []
         for c in active_contracts:
             if current_day > c["deadline"] and not c.get("_traveling"):
@@ -130,8 +138,13 @@ def run_engine(contracts_data, map_data, profile):
             active_contracts.remove(c)
             failed.append(c)
             log_day(current_day, current_city, "FAILED", f"{c['id']} {c['target']} — missed deadline, -10% rep")
+            print_event(
+                f"Day {current_day}: FAILED {c['id']} ({c['target']}) "
+                f"because the deadline was missed."
+            )
 
-        # --- Accept new contracts up to limit ---
+        # Step 2: score every available contract and accept the best ones
+        # until we reach the active contract limit.
         candidates = [
             c for c in all_contracts
             if c["id"] in available_ids
@@ -148,32 +161,41 @@ def run_engine(contracts_data, map_data, profile):
 
         slots = max_contracts - len(active_contracts)
         for _, c in scored[:slots]:
-            # Trap detection: detect before traveling
+            # Trap contracts are revealed after acceptance but before travel.
+            # If we are clearly underpowered, we abandon immediately.
             if c.get("is_trap"):
-                # Always detect trap; decide whether to abandon
                 trap_real_tier = c["tier"] + 1
                 if skills.get("combat", 0) < trap_real_tier and skills.get("stealth", 0) < trap_real_tier:
                     abandoned.append(c)
                     available_ids.discard(c["id"])
                     log_day(current_day, current_city, "ABANDONED_TRAP", f"{c['id']} {c['target']} — trap detected, tier {trap_real_tier} required, -1 rep")
+                    print_event(
+                        f"Day {current_day}: ABANDONED TRAP {c['id']} ({c['target']}) "
+                        f"after detection. Hidden tier was {trap_real_tier}."
+                    )
                     continue
 
             active_contracts.append(c)
             available_ids.discard(c["id"])
             log_day(current_day, current_city, "ACCEPTED", f"{c['id']} {c['target']} @ {c['city']} gold={c['gold']}")
+            print_event(
+                f"Day {current_day}: ACCEPTED {c['id']} ({c['target']}) "
+                f"in {c['city']} for {c['gold']}g."
+            )
 
-        # --- Choose next destination ---
-        # Pick the highest-value active contract we haven't traveled to yet
+        # Step 3: choose the next active contract to pursue.
         reachable = [
             c for c in active_contracts
             if not c.get("_done")
         ]
         if not reachable:
             log_day(current_day, current_city, "IDLE", "No reachable contracts — scouting")
+            print_event(f"Day {current_day}: IDLE. No reachable contracts.")
             current_day += 1
             continue
 
-        # Score by (gold / (travel + exec)) weighted by deadline urgency
+        # Route scoring prefers contracts with strong gold-per-day value,
+        # while also pushing urgent deadlines upward.
         def route_score(c):
             tt = travel_time(current_city, c["city"], travel_map)
             days_left = c["deadline"] - current_day - tt - c["execution_days"]
@@ -184,25 +206,30 @@ def run_engine(contracts_data, map_data, profile):
         reachable.sort(key=lambda c: -route_score(c))
         target_contract = reachable[0]
 
-        # --- Travel ---
+        # Step 4: travel to the chosen contract city if needed.
         dest = target_contract["city"]
         tt = travel_time(current_city, dest, travel_map)
         if tt > 0 and dest != current_city:
             log_day(current_day, current_city, "TRAVEL", f"→ {dest} ({tt} days)")
+            print_event(f"Day {current_day}: TRAVEL from {current_city} to {dest} ({tt} days).")
             current_day += tt
             current_city = dest
 
         if current_day > total_days:
             break
 
-        # Check deadline after travel
+        # Step 5: if travel alone made us late, the contract fails.
         if current_day > target_contract["deadline"]:
             active_contracts.remove(target_contract)
             failed.append(target_contract)
             log_day(current_day, current_city, "FAILED", f"{target_contract['id']} {target_contract['target']} — arrived too late")
+            print_event(
+                f"Day {current_day}: FAILED {target_contract['id']} ({target_contract['target']}) "
+                f"because arrival was after the deadline."
+            )
             continue
 
-        # --- Execute contract ---
+        # Step 6: execute the contract and simulate possible complications.
         exec_days, complication = simulate_execution(target_contract)
         finish_day = current_day + exec_days
 
@@ -210,10 +237,14 @@ def run_engine(contracts_data, map_data, profile):
             active_contracts.remove(target_contract)
             failed.append(target_contract)
             log_day(current_day, current_city, "FAILED", f"{target_contract['id']} — complication overran deadline")
+            print_event(
+                f"Day {current_day}: FAILED {target_contract['id']} because execution "
+                f"ran past the deadline."
+            )
             current_day = finish_day
             continue
 
-        # Success
+        # Step 7: on success, collect gold and increase skills.
         current_day = finish_day
         earned = int(target_contract["gold"] * rep_mult())
         gold += earned
@@ -238,6 +269,12 @@ def run_engine(contracts_data, map_data, profile):
         complication_note = " (COMPLICATION: took longer)" if complication else ""
         log_day(current_day, current_city, "COMPLETED",
                 f"{target_contract['id']} {target_contract['target']} — earned {earned}g{complication_note}")
+        print_event(
+            f"Day {current_day}: COMPLETED {target_contract['id']} ({target_contract['target']}) "
+            f"for {earned}g. Skills now: {skills}"
+        )
+        if unlocked:
+            print_event(f"Day {current_day}: Newly unlocked contracts -> {', '.join(unlocked)}")
 
     return {
         "gold": gold,
@@ -383,16 +420,20 @@ Reputation Management:
 
 if __name__ == "__main__":
     base = "." if len(sys.argv) < 2 else sys.argv[1]
+    print(f"Loading input files from: {base}")
     contracts_data = load_json(f"{base}/data/contracts.json")
-    map_data       = load_json(f"{base}/data/map.json")
-    profile        = load_json(f"{base}/data/profile.json")
+    map_data = load_json(f"{base}/data/map.json")
+    profile = load_json(f"{base}/data/profile.json")
 
     print("Running Zoldyck Optimization Engine...")
     result = run_engine(contracts_data, map_data, profile)
 
-    write_path_report(result,   f"{base}/output/optimal_path_report.txt")
-    write_skill_log(result,     f"{base}/output/skill_progression_log.txt")
-    write_strategy_doc(result,  f"{base}/output/strategy_document.txt")
+    print("Writing output/optimal_path_report.txt")
+    write_path_report(result, f"{base}/output/optimal_path_report.txt")
+    print("Writing output/skill_progression_log.txt")
+    write_skill_log(result, f"{base}/output/skill_progression_log.txt")
+    print("Writing output/strategy_document.txt")
+    write_strategy_doc(result, f"{base}/output/strategy_document.txt")
 
     print(f"\n✓ Simulation complete.")
     print(f"  Gold earned    : {result['gold']:,}g")
