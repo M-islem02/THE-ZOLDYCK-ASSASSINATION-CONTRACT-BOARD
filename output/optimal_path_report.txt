@@ -1,0 +1,186 @@
+======================================================================
+OPTIMAL PATH REPORT — ZOLDYCK CONTRACT BOARD
+======================================================================
+
+Day   1 | Yorknew        | ACCEPTED             | C01 Vugo Boldora @ Yorknew gold=5000
+Day   1 | Yorknew        | ACCEPTED             | C15 Goz @ Yorknew gold=4500
+Day   1 | Yorknew        | ACCEPTED             | C04 Lippo @ Zaban gold=4000
+Day   1 | Yorknew        | ACCEPTED             | C07 Beans @ Dolle Harbor gold=3000
+Day   1 | Yorknew        | ACCEPTED             | C13 Leorio Paradinight @ Zaban gold=2000
+Day   3 | Yorknew        | COMPLETED            | C01 Vugo Boldora — earned 5000g
+Day   3 | Yorknew        | ACCEPTED             | C02 Dalzollene @ Yorknew gold=8000
+Day   7 | Yorknew        | COMPLETED            | C02 Dalzollene — earned 8000g (COMPLICATION: took longer)
+Day   7 | Yorknew        | ACCEPTED             | C23 Squala @ Yorknew gold=5200
+Day   9 | Yorknew        | COMPLETED            | C23 Squala — earned 5200g
+Day   9 | Yorknew        | ABANDONED_TRAP       | C22 Kurapika — trap detected, tier 5 required, -1 rep
+Day  11 | Yorknew        | COMPLETED            | C15 Goz — earned 4050g
+Day  11 | Yorknew        | FAILED               | C13 Leorio Paradinight — missed deadline, -10% rep
+Day  11 | Yorknew        | ACCEPTED             | C20 Geretta @ Yorknew gold=4800
+Day  11 | Yorknew        | ACCEPTED             | C05 Satotz @ Zaban gold=6000
+Day  11 | Yorknew        | ACCEPTED             | C18 Hanzo @ Dolle Harbor gold=8500
+Day  13 | Yorknew        | COMPLETED            | C20 Geretta — earned 3840g
+Day  13 | Yorknew        | FAILED               | C07 Beans — missed deadline, -10% rep
+Day  13 | Yorknew        | ACCEPTED             | C03 Neon Nostrade @ Yorknew gold=12000
+Day  13 | Yorknew        | ACCEPTED             | C09 Razor @ Masadora gold=15000
+Day  17 | Yorknew        | COMPLETED            | C03 Neon Nostrade — earned 8400g
+Day  17 | Yorknew        | ACCEPTED             | C11 Milluki Zoldyck @ Kukuroo gold=25000
+Day  17 | Yorknew        | TRAVEL               | → Kukuroo (7 days)
+Day  31 | Kukuroo        | COMPLETED            | C11 Milluki Zoldyck — earned 17500g
+Day  31 | Kukuroo        | FAILED               | C04 Lippo — missed deadline, -10% rep
+Day  31 | Kukuroo        | FAILED               | C05 Satotz — missed deadline, -10% rep
+Day  31 | Kukuroo        | ACCEPTED             | C19 Bourbon @ Kukuroo gold=6500
+Day  31 | Kukuroo        | ACCEPTED             | C10 Genthru @ Masadora gold=20000
+Day  34 | Kukuroo        | COMPLETED            | C19 Bourbon — earned 3250g (COMPLICATION: took longer)
+Day  34 | Kukuroo        | FAILED               | C18 Hanzo — missed deadline, -10% rep
+Day  34 | Kukuroo        | TRAVEL               | → Masadora (4 days)
+Day  44 | Masadora       | COMPLETED            | C10 Genthru — earned 7999g
+Day  44 | Masadora       | ACCEPTED             | C25 Killua Zoldyck @ Kukuroo gold=50000
+Day  44 | Masadora       | TRAVEL               | → Kukuroo (4 days)
+Day  63 | Kukuroo        | COMPLETED            | C25 Killua Zoldyck — earned 19999g (COMPLICATION: took longer)
+Day  63 | Kukuroo        | FAILED               | C09 Razor — missed deadline, -10% rep
+Day  63 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  64 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  65 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  66 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  67 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  68 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  69 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  70 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  71 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  72 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  73 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  74 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  75 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  76 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  77 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  78 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  79 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  80 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  81 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  82 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  83 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  84 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  85 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  86 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  87 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  88 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  89 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  90 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  91 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  92 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  93 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  94 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  95 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  96 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  97 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  98 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day  99 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 100 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 101 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 102 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 103 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 104 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 105 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 106 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 107 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 108 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 109 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 110 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 111 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 112 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 113 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 114 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 115 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 116 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 117 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 118 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 119 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 120 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 121 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 122 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 123 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 124 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 125 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 126 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 127 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 128 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 129 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 130 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 131 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 132 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 133 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 134 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 135 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 136 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 137 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 138 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 139 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 140 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 141 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 142 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 143 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 144 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 145 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 146 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 147 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 148 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 149 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 150 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 151 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 152 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 153 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 154 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 155 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 156 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 157 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 158 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 159 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 160 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 161 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 162 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 163 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 164 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 165 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 166 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 167 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 168 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 169 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 170 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 171 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 172 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 173 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 174 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 175 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 176 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 177 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 178 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 179 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 180 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 181 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 182 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 183 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 184 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 185 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 186 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 187 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 188 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 189 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 190 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 191 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 192 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 193 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 194 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 195 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 196 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 197 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 198 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 199 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+Day 200 | Kukuroo        | IDLE                 | No reachable contracts — scouting
+
+======================================================================
+TOTAL GOLD EARNED : 83,238g
+CONTRACTS COMPLETED: 10
+CONTRACTS FAILED   : 6
+CONTRACTS ABANDONED: 1
+FINAL REP MULTIPLIER: 0.30x
+======================================================================

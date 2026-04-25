@@ -1,0 +1,10 @@
+{
+  "cities": ["Yorknew", "Zaban", "Dolle Harbor", "Masadora", "Kukuroo"],
+  "travel_times": {
+    "Yorknew":     {"Yorknew": 0, "Zaban": 2, "Dolle Harbor": 3, "Masadora": 5, "Kukuroo": 7},
+    "Zaban":       {"Yorknew": 2, "Zaban": 0, "Dolle Harbor": 2, "Masadora": 4, "Kukuroo": 6},
+    "Dolle Harbor":{"Yorknew": 3, "Zaban": 2, "Dolle Harbor": 0, "Masadora": 3, "Kukuroo": 5},
+    "Masadora":    {"Yorknew": 5, "Zaban": 4, "Dolle Harbor": 3, "Masadora": 0, "Kukuroo": 4},
+    "Kukuroo":     {"Yorknew": 7, "Zaban": 6, "Dolle Harbor": 5, "Masadora": 4, "Kukuroo": 0}
+  }
+}

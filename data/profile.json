@@ -1,0 +1,13 @@
+{
+  "name": "Outsider",
+  "starting_city": "Yorknew",
+  "gold": 0,
+  "reputation": 10,
+  "skills": {
+    "stealth": 1,
+    "combat": 1,
+    "deception": 1
+  },
+  "max_contracts": 5,
+  "total_days": 200
+}

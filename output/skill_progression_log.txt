@@ -1,0 +1,60 @@
+======================================================================
+SKILL PROGRESSION LOG — ZOLDYCK CONTRACT BOARD
+======================================================================
+
+Day   3 | Contract: C01
+         Gains    : +1 stealth, +1 combat
+         Skills   : stealth:2, combat:2, deception:1
+         Unlocked : C02, C05, C06, C14, C17, C20, C23
+
+Day   7 | Contract: C02
+         Gains    : +1 stealth, +1 combat
+         Skills   : stealth:3, combat:3, deception:1
+         Unlocked : C08, C16, C18, C19
+
+Day   9 | Contract: C23
+         Gains    : +1 stealth, +1 combat
+         Skills   : stealth:4, combat:4, deception:1
+         Unlocked : C09, C22
+
+Day  11 | Contract: C15
+         Gains    : +1 combat, +1 stealth
+         Skills   : stealth:5, combat:5, deception:1
+         Unlocked : C11
+
+Day  13 | Contract: C20
+         Gains    : +1 combat, +1 deception
+         Skills   : stealth:5, combat:6, deception:2
+         Unlocked : C03
+
+Day  17 | Contract: C03
+         Gains    : +1 stealth, +1 deception
+         Skills   : stealth:6, combat:6, deception:3
+         Unlocked : C10
+
+Day  31 | Contract: C11
+         Gains    : +1 combat, +1 stealth
+         Skills   : stealth:7, combat:7, deception:3
+         Unlocked : none
+
+Day  34 | Contract: C19
+         Gains    : +1 stealth
+         Skills   : stealth:8, combat:7, deception:3
+         Unlocked : none
+
+Day  44 | Contract: C10
+         Gains    : +1 combat, +1 deception
+         Skills   : stealth:8, combat:8, deception:4
+         Unlocked : C25
+
+Day  63 | Contract: C25
+         Gains    : +1 combat, +1 stealth, +1 deception
+         Skills   : stealth:9, combat:9, deception:5
+         Unlocked : none
+
+======================================================================
+FINAL SKILLS:
+  stealth: 9
+  combat: 9
+  deception: 5
+======================================================================

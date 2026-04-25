@@ -1,0 +1,79 @@
+=======================================================================
+STRATEGY DOCUMENT — ZOLDYCK CONTRACT BOARD OPTIMIZATION ENGINE
+=======================================================================
+
+1. CONTRACT SELECTION ALGORITHM
+--------------------------------
+We use a greedy scoring function that evaluates each available contract
+as: score = (gold × reputation_multiplier) / (travel_days + expected_exec_days)
+              + urgency_bonus - trap_penalty
+
+Urgency bonus rewards contracts with tighter deadlines (up to +500 pts).
+Trap penalty (-500) discourages traps unless skills clearly exceed the
+hidden tier requirement. Contracts impossible to complete in time are
+scored -1 and skipped entirely.
+
+At each day, we fill contract slots (max 5) by picking the top-scored
+feasible contracts. Skill requirements are hard-gated — contracts the
+agent cannot yet execute are never accepted.
+
+2. ROUTE OPTIMIZATION
+---------------------
+After accepting contracts, we use a greedy nearest-value heuristic:
+  - For each active contract, compute: route_score = gold / (travel + exec)
+    weighted by deadline urgency (+5 per day of tight deadline)
+  - Always travel to the highest route_score contract next
+  - Contracts in the same city are naturally chained at zero travel cost
+
+This is O(n) per step. A full TSP solver could improve total gold by
+~8-15% for dense contract sets, but the greedy approach is robust and
+deadline-safe. For n≤25 cities, the greedy gap is acceptable.
+
+3. SKILL PROGRESSION MODELING
+------------------------------
+Each completed contract grants +1 to all its required skills. This models
+the idea that executing a contract trains the relevant capabilities.
+
+Strategy: In early days (1-50), prioritize Tier 1-2 contracts to rapidly
+raise all skill tracks. This unlocks Tier 3-4 contracts by Day 60-80,
+which have 3-5x the gold value. The gold-per-day curve accelerates
+sharply after skill thresholds are crossed.
+
+We track newly-unlocked contracts after every skill gain and immediately
+re-evaluate the contract board.
+
+4. UNCERTAINTY HANDLING
+------------------------
+Complications (20% chance, 1.5x exec time):
+  - Expected execution = exec_days × 1.04 (EV of the complication)
+  - Deadline feasibility check uses the worst case (1.5x) for safety
+  - If even the worst case fits the deadline, we accept the contract
+
+Trap Contracts:
+  - All traps are detected before travel (per rules)
+  - Abandon if: agent's combat AND stealth are both below the hidden tier
+  - Accept if: at least one primary skill exceeds the trap tier
+  - Each abandon costs 1 reputation penalty (-10% reward stack)
+  - Early abandons are costly; late-game abandons are acceptable since
+    the reputation hit on large gold contracts is offset by skipping
+    contracts we'd likely fail anyway
+
+5. TRADEOFFS CONSIDERED
+------------------------
+Gold vs Risk:
+  High-tier contracts have 3-5x the gold but require skill investment.
+  We chose a hybrid strategy: skill-farm Tier 1-2 for the first 40 days,
+  then shift to maximizing gold per day from Tier 3+ contracts.
+
+Speed vs Skill Farming:
+  Pure skill farming (only easy contracts) leaves gold on the table.
+  Pure gold chasing (jump to hard contracts) hits skill walls.
+  Optimal: interleave Tier 2 contracts during travel to Tier 3 cities.
+
+Reputation Management:
+  Each fail/abandon stacks a -10% multiplier. With 25 contracts and
+  risk of 3-4 fails, late-game gold is reduced by 30-40% without care.
+  Strategy: never accept contracts where finish_day > deadline - 2
+  (2-day safety buffer for complications).
+
+=======================================================================

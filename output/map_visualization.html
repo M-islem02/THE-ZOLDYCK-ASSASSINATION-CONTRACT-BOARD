@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zoldyck Contract Board — Map Visualization</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d1a0f; color: #c8951a; font-family: 'Courier New', monospace; padding: 24px; }
+h1 { font-size: 20px; letter-spacing: 3px; text-align: center; margin-bottom: 4px; color: #e8b84b; }
+h2 { font-size: 11px; letter-spacing: 4px; text-align: center; margin-bottom: 20px; color: #5a7a3a; }
+#canvas-wrap { border: 1px solid #2a4a1a; border-radius: 8px; background: #111d0f; overflow: hidden; }
+canvas { display: block; }
+.legend { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 14px; font-size: 11px; }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.stats { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+.stat { background: #1a2e10; border: 1px solid #2a4a1a; border-radius: 6px; padding: 8px 16px; text-align: center; }
+.stat-val { font-size: 22px; color: #e8b84b; }
+.stat-lbl { font-size: 10px; color: #5a7a3a; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+<h1>ZOLDYCK CONTRACT BOARD</h1>
+<h2>CHALLENGE 03 — ROUTE VISUALIZATION</h2>
+<div id="canvas-wrap"><canvas id="c" width="760" height="400"></canvas></div>
+<div class="legend">
+  <div class="legend-item"><div class="dot" style="background:#e8b84b"></div> City</div>
+  <div class="legend-item"><div class="dot" style="background:#4aaa4a"></div> Completed contract</div>
+  <div class="legend-item"><div class="dot" style="background:#cc3333"></div> Failed / abandoned</div>
+  <div class="legend-item"><div style="width:30px;height:2px;background:#c8951a;opacity:.6"></div> Travel route</div>
+</div>
+<div class="stats">
+  <div class="stat"><div class="stat-val">83,238g</div><div class="stat-lbl">GOLD EARNED</div></div>
+  <div class="stat"><div class="stat-val">10</div><div class="stat-lbl">COMPLETED</div></div>
+  <div class="stat"><div class="stat-val">6</div><div class="stat-lbl">FAILED</div></div>
+  <div class="stat"><div class="stat-val">200</div><div class="stat-lbl">DAYS</div></div>
+</div>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+
+const cities = {
+  "Yorknew":     {x: 580, y: 120, contracts: ["C01","C02","C15","C03","C20","C23"], completed: ["C01","C02","C15","C03","C20","C23"]},
+  "Zaban":       {x: 380, y: 80,  contracts: ["C04","C13","C05"], completed: ["C05"]},
+  "Dolle Harbor":{x: 250, y: 200, contracts: ["C07","C06","C18"], completed: ["C18"]},
+  "Masadora":    {x: 420, y: 310, contracts: ["C08","C09","C16","C10"], completed: ["C10"]},
+  "Kukuroo":     {x: 160, y: 330, contracts: ["C12","C19","C11","C25"], completed: ["C11","C25"]},
+};
+
+const routes = [
+  ["Yorknew","Zaban"],
+  ["Zaban","Dolle Harbor"],
+  ["Dolle Harbor","Kukuroo"],
+  ["Kukuroo","Masadora"],
+];
+
+const travelPath = ["Yorknew","Zaban","Dolle Harbor","Kukuroo","Masadora","Kukuroo"];
+
+// Background grid
+ctx.strokeStyle = '#1a2e10';
+ctx.lineWidth = 1;
+for (let x = 0; x < 760; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,400); ctx.stroke(); }
+for (let y = 0; y < 400; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(760,y); ctx.stroke(); }
+
+// All city connections (faint)
+const allPairs = [
+  ["Yorknew","Zaban"],["Yorknew","Dolle Harbor"],["Yorknew","Masadora"],["Yorknew","Kukuroo"],
+  ["Zaban","Dolle Harbor"],["Zaban","Masadora"],["Zaban","Kukuroo"],
+  ["Dolle Harbor","Masadora"],["Dolle Harbor","Kukuroo"],
+  ["Masadora","Kukuroo"],
+];
+ctx.strokeStyle = 'rgba(200,149,26,0.12)';
+ctx.lineWidth = 1;
+allPairs.forEach(([a,b]) => {
+  ctx.beginPath(); ctx.moveTo(cities[a].x, cities[a].y); ctx.lineTo(cities[b].x, cities[b].y); ctx.stroke();
+});
+
+// Traveled routes (bright)
+ctx.strokeStyle = 'rgba(200,149,26,0.65)';
+ctx.lineWidth = 2.5;
+ctx.setLineDash([6,4]);
+for (let i=0; i<travelPath.length-1; i++) {
+  const a = cities[travelPath[i]], b = cities[travelPath[i+1]];
+  ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+
+  // Arrow
+  const dx = b.x - a.x, dy = b.y - a.y;
+  const len = Math.sqrt(dx*dx+dy*dy);
+  const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
+  const ux = dx/len, uy = dy/len;
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(200,149,26,0.8)';
+  ctx.beginPath();
+  ctx.moveTo(mx + ux*8, my + uy*8);
+  ctx.lineTo(mx - ux*8 - uy*5, my - uy*8 + ux*5);
+  ctx.lineTo(mx - ux*8 + uy*5, my - uy*8 - ux*5);
+  ctx.fill();
+  ctx.setLineDash([6,4]);
+}
+ctx.setLineDash([]);
+
+// Cities
+Object.entries(cities).forEach(([name, city]) => {
+  const total = city.contracts.length;
+  const done = city.completed.length;
+  const failed = total - done;
+
+  // Glow
+  const grad = ctx.createRadialGradient(city.x, city.y, 0, city.x, city.y, 36);
+  grad.addColorStop(0, 'rgba(200,149,26,0.18)');
+  grad.addColorStop(1, 'transparent');
+  ctx.fillStyle = grad;
+  ctx.beginPath(); ctx.arc(city.x, city.y, 36, 0, Math.PI*2); ctx.fill();
+
+  // Circle
+  ctx.fillStyle = '#1a2e10';
+  ctx.strokeStyle = '#c8951a';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(city.x, city.y, 14, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+
+  // Inner dot
+  ctx.fillStyle = '#e8b84b';
+  ctx.beginPath(); ctx.arc(city.x, city.y, 4, 0, Math.PI*2); ctx.fill();
+
+  // Name label
+  ctx.fillStyle = '#c8951a';
+  ctx.font = 'bold 11px Courier New';
+  ctx.textAlign = 'center';
+  ctx.fillText(name, city.x, city.y - 22);
+
+  // Contract counts
+  ctx.font = '10px Courier New';
+  ctx.fillStyle = '#4aaa4a';
+  ctx.fillText(`✓ ${done}`, city.x - 14, city.y + 28);
+  ctx.fillStyle = '#cc3333';
+  ctx.fillText(`✗ ${failed}`, city.x + 14, city.y + 28);
+});
+
+// Day markers along travel path
+const dayMarkers = [
+  {city:"Yorknew", day:1, label:"Start D1"},
+  {city:"Zaban",   day:17, label:"D17"},
+  {city:"Dolle Harbor", day:21, label:"D21"},
+  {city:"Kukuroo", day:27, label:"D27"},
+  {city:"Masadora", day:43, label:"D43"},
+  {city:"Kukuroo", day:56, label:"D56"},
+];
+ctx.font = '9px Courier New';
+ctx.fillStyle = 'rgba(200,149,26,0.55)';
+dayMarkers.forEach(m => {
+  ctx.fillText(m.label, cities[m.city].x + 18, cities[m.city].y + (m.label==="Start D1" ? -8 : 8));
+});
+
+// Title watermark
+ctx.font = 'bold 13px Courier New';
+ctx.fillStyle = 'rgba(200,149,26,0.15)';
+ctx.textAlign = 'left';
+ctx.fillText('ZOLDYCK ESTATE — WORLD MAP', 20, 390);
+</script>
+</body>
+</html>
